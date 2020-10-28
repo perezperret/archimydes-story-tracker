@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Switch, Route, Link, Redirect } from "react-router-dom"
 
 import { consumeCurrentUser } from './contexts/current_user_context'

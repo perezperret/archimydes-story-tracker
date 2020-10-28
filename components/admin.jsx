@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import { consumeCurrentUser } from './contexts/current_user_context'

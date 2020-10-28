@@ -30,7 +30,7 @@ const All = ({ currentUser }) => {
     return <div>Splash screen</div>
   } else {
     return (
-      <table>
+      <table className="table table-responsive">
         <thead>
           <tr>
             <th>id</th>

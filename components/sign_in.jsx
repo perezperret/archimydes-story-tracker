@@ -30,21 +30,30 @@ const SignIn = ({ currentUser, signInUser }) => {
   return (
     <div>
       { currentUser ? <Redirect to='/' /> : null }
+      <h1 className="h6 mb-5">StoryTracker | Sign in</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         { signInError ? <div>{signInError}</div> : null }
 
-        <div>
-          <label htmlFor="email">Email</label>
+        <div className="form-group">
+          <label className="small text-muted text-uppercase" htmlFor="email">
+            Email
+          </label>
+
           <input
+            className="form-control"
             ref={register}
             name="email" id="email" type="email"
             autoComplete="email" />
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className="form-group">
+          <label className="small text-muted text-uppercase" htmlFor="password">
+            Password
+          </label>
+
           <input
+            className="form-control"
             ref={register}
             name="password" id="password" type="password"
             autoComplete="password" />
@@ -52,11 +61,11 @@ const SignIn = ({ currentUser, signInUser }) => {
 
         <div>
           <input name="isAdmin" id="isAdmin" type="checkbox" ref={register} />
-          <label htmlFor="isAdmin">Admin</label>
+          <label className="ml-2" htmlFor="isAdmin">Sign in as admin</label>
         </div>
 
         <div>
-          <input type="submit" />
+          <input className="btn btn-block btn-primary" type="submit" />
         </div>
       </form>
     </div>

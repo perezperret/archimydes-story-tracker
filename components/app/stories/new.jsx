@@ -32,46 +32,62 @@ const New = ({ currentUser }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       { apiError ? <div>{apiError}</div> : null }
 
-      <div>
-        <label htmlFor="summary">Summary</label>
-        <input ref={register} name="summary" id="summary" type="text" />
+      <div className="form-group">
+        <label className="small text-muted text-uppercase" htmlFor="summary">Summary</label>
+        <input className="form-control" ref={register} name="summary" id="summary" type="text" />
+      </div>
+
+      <div className="form-group">
+        <label className="small text-muted text-uppercase" htmlFor="description">Description</label>
+        <textarea className="form-control" ref={register} name="description" id="description" />
+      </div>
+
+      <div className="row mx-n1">
+        <div className="col px-1 form-group">
+          <label className="small text-muted text-uppercase" htmlFor="type">Type</label>
+          <select className="form-control" ref={register} name="type" id="type">
+            {['enhancement', 'bugfix', 'development', 'QA'].map(type => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="col px-1 form-group">
+          <label className="small text-muted text-uppercase" htmlFor="complexity">Complexity</label>
+          <select className="form-control" ref={register} name="complexity" id="complexity">
+            {['low', 'mid', 'high'].map(complexity => (
+              <option key={complexity} value={complexity}>{complexity}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="row mx-n1">
+        <div className="col px-1 form-group">
+          <label className="small text-muted text-uppercase" htmlFor="estimatedHrs">Time estimate</label>
+          <div className="input-group">
+            <input className="form-control" ref={register} name="estimatedHrs" id="estimatedHrs" type="text" />
+
+            <div className="input-group-append">
+              <span className="input-group-text">Hrs</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="col px-1 form-group">
+          <label className="small text-muted text-uppercase" htmlFor="cost">Cost</label>
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text">$</span>
+            </div>
+
+            <input className="form-control" ref={register} name="cost" id="cost" type="number" />
+          </div>
+        </div>
       </div>
 
       <div>
-        <label htmlFor="description">Description</label>
-        <textarea ref={register} name="description" id="description" />
-      </div>
-
-      <div>
-        <label htmlFor="type">Type</label>
-        <select ref={register} name="type" id="type">
-          {['enhancement', 'bugfix', 'development', 'QA'].map(type => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="complexity">Complexity</label>
-        <select ref={register} name="complexity" id="complexity">
-          {['low', 'mid', 'high'].map(complexity => (
-            <option key={complexity} value={complexity}>{complexity}</option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="estimatedHrs">Time estimate</label>
-        <input ref={register} name="estimatedHrs" id="estimatedHrs" type="text" />
-      </div>
-
-      <div>
-        <label htmlFor="cost">Cost</label>
-        $<input ref={register} name="cost" id="cost" type="number" />
-      </div>
-
-      <div>
-        <input type="submit" />
+        <input className="btn btn-block btn-primary" type="submit" />
       </div>
     </form>
   )
