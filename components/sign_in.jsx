@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Redirect, useHistory } from 'react-router-dom'
 
-import { withCurrentUser } from './current_user_context'
+import { consumeCurrentUser } from './contexts/current_user_context'
 
 const SignIn = ({ currentUser, signInUser }) => {
   const { register, handleSubmit } = useForm()
@@ -63,4 +63,4 @@ const SignIn = ({ currentUser, signInUser }) => {
   )
 }
 
-export default withCurrentUser(SignIn)
+export default consumeCurrentUser(SignIn)

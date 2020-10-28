@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
-import { withCurrentUser } from './current_user_context'
+import { consumeCurrentUser } from '../../contexts/current_user_context'
 
-const NewStory = ({ currentUser }) => {
+const New = ({ currentUser }) => {
   const { register, handleSubmit } = useForm()
   const [apiError, setApiError] = useState('')
   const history = useHistory()
@@ -77,4 +77,4 @@ const NewStory = ({ currentUser }) => {
   )
 }
 
-export default withCurrentUser(NewStory)
+export default consumeCurrentUser(New)

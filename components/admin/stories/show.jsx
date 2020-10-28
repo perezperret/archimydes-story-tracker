@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import { withCurrentUser } from './current_user_context'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  useRouteMatch,
-  useHistory
-} from "react-router-dom"
+import { consumeCurrentUser } from '../../contexts/current_user_context'
+import { useHistory } from "react-router-dom"
 
 const AdminStory = ({ currentUser }) => {
   const [story, setStory] = useState({})
@@ -104,4 +95,4 @@ const AdminStory = ({ currentUser }) => {
   }
 }
 
-export default withCurrentUser(AdminStory)
+export default consumeCurrentUser(AdminStory)

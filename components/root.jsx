@@ -1,20 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
-import ReactDOM from 'react-dom'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  useRouteMatch
-} from "react-router-dom"
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
-import { provideCurrentUser, withCurrentUser } from './current_user_context'
+import { provideCurrentUser, consumeCurrentUser } from './contexts/current_user_context'
 
 import SignIn from './sign_in'
-import UserSpace from './user_space'
-import AdminSpace from './admin_space'
+import App from './app'
+import Admin from './admin'
 
 const Root = ({ currentUser, currentUserLoading }) => {
   if (currentUserLoading) {
@@ -23,12 +14,12 @@ const Root = ({ currentUser, currentUserLoading }) => {
     return (
       <div>
         <Router>
-          { !currentUser ? <Redirect to="/signin" /> : null }
-
           <Switch>
             <Route path="/signin"><SignIn /></Route>
-            <Route path="/admin"><AdminSpace /></Route>
-            <Route path="/app"><UserSpace /></Route>
+            { !currentUser ? <Redirect to="/signin" /> : null }
+
+            <Route path="/admin"><Admin /></Route>
+            <Route path="/app"><App /></Route>
             <Redirect to={ currentUser?.role == 'Admin' ? '/admin' : '/app' } />
           </Switch>
         </Router>
@@ -37,4 +28,4 @@ const Root = ({ currentUser, currentUserLoading }) => {
   }
 }
 
-export default provideCurrentUser(withCurrentUser(Root))
+export default provideCurrentUser(consumeCurrentUser(Root))

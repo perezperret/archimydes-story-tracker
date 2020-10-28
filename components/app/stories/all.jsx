@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-import { withCurrentUser } from './current_user_context'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  useRouteMatch
-} from "react-router-dom"
+import { consumeCurrentUser } from '../../contexts/current_user_context'
 
-const AdminStories = ({ currentUser }) => {
+const All = ({ currentUser }) => {
   const [stories, setStories] = useState([])
   const [loading, setLoading] = useState(true)
   const [apiError, setApiError] = useState(null)
@@ -49,7 +40,6 @@ const AdminStories = ({ currentUser }) => {
             <th>complexity</th>
             <th>time estimate</th>
             <th>cost</th>
-            <th></th>
           </tr>
         </thead>
 
@@ -63,7 +53,6 @@ const AdminStories = ({ currentUser }) => {
               <td>{complexity}</td>
               <td>{estimatedHrs || 0} h.</td>
               <td>${cost || 0}</td>
-              <td><Link to={`stories/${id}`}>Review</Link></td>
             </tr>
           ))}
         </tbody>
@@ -72,4 +61,4 @@ const AdminStories = ({ currentUser }) => {
   }
 }
 
-export default withCurrentUser(AdminStories)
+export default consumeCurrentUser(All)

@@ -8,7 +8,7 @@ const CurrentUserContext = createContext({
 
 export default CurrentUserContext
 
-export const withCurrentUser = Component => {
+export const consumeCurrentUser = Component => {
   const CurrentUserConsumer = () => {
     const props = useContext(CurrentUserContext)
 
