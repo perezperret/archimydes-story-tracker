@@ -16,21 +16,20 @@ import SignIn from './sign_in'
 import UserSpace from './user_space'
 import AdminSpace from './admin_space'
 
-const App = ({ currentUser }) => {
-  if (currentUser.loading) {
+const Root = ({ currentUser, currentUserLoading }) => {
+  if (currentUserLoading) {
     return <div>Splash Screen</div>
   } else {
     return (
       <div>
         <Router>
-          { currentUser.role
-            ? <Redirect to={currentUser.role == 'Admin' ? '/admin' : '/'} />
-            : <Redirect to="/signin"/> }
+          { !currentUser ? <Redirect to="/signin" /> : null }
 
           <Switch>
             <Route path="/signin"><SignIn /></Route>
             <Route path="/admin"><AdminSpace /></Route>
-            <Route path="/"><UserSpace /></Route>
+            <Route path="/app"><UserSpace /></Route>
+            <Redirect to={ currentUser?.role == 'Admin' ? '/admin' : '/app' } />
           </Switch>
         </Router>
       </div>
@@ -38,4 +37,4 @@ const App = ({ currentUser }) => {
   }
 }
 
-export default provideCurrentUser(withCurrentUser(App))
+export default provideCurrentUser(withCurrentUser(Root))

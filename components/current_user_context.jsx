@@ -22,7 +22,8 @@ export const withCurrentUser = Component => {
 
 export const provideCurrentUser = Component => {
   const CurrentUserProvider = () => {
-    const [currentUser, setCurrentUser] = useState({ loading: true })
+    const [currentUser, setCurrentUser] = useState(null)
+    const [currentUserLoading, setCurrentUserLoading] = useState(true)
 
     const signInUser = currentUser => {
       window.localStorage.setItem('currentUser', JSON.stringify(currentUser))
@@ -31,7 +32,7 @@ export const provideCurrentUser = Component => {
 
     const signOutUser = () => {
       window.localStorage.removeItem('currentUser')
-      setCurrentUser({ loading: false })
+      setCurrentUser(null)
     }
 
     useEffect(() => {
@@ -39,13 +40,15 @@ export const provideCurrentUser = Component => {
         window.localStorage.getItem('currentUser')
         && JSON.parse(window.localStorage.getItem('currentUser'))
 
-      setCurrentUser(currentUser ? currentUser : { loading: false })
+      setCurrentUser(currentUser ? currentUser : null)
+      setCurrentUserLoading(false)
     }, [])
 
     return (
       <CurrentUserContext.Provider
         value = {{
           currentUser: currentUser,
+          currentUserLoading: currentUserLoading,
           signInUser: signInUser,
           signOutUser: signOutUser
         }}

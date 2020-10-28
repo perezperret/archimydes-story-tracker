@@ -49,7 +49,6 @@ const AdminStories = ({ currentUser }) => {
             <th>complexity</th>
             <th>time estimate</th>
             <th>cost</th>
-            <th></th>
           </tr>
         </thead>
 
@@ -63,7 +62,6 @@ const AdminStories = ({ currentUser }) => {
               <td>{complexity}</td>
               <td>{estimatedHrs || 0} h.</td>
               <td>${cost || 0}</td>
-              <td><Link to={`stories/${id}`}>Review</Link></td>
             </tr>
           ))}
         </tbody>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useForm } from "react-hook-form"
+import { useForm } from 'react-hook-form'
+import { Redirect, useHistory } from 'react-router-dom'
 
 import { withCurrentUser } from './current_user_context'
 
-const SignIn = ({ signInUser }) => {
+const SignIn = ({ currentUser, signInUser }) => {
   const { register, handleSubmit } = useForm()
   const [signInError, setSignInError] = useState('')
+  const history = useHistory()
 
   const onSubmit = data => {
     setSignInError('')
@@ -17,40 +19,47 @@ const SignIn = ({ signInUser }) => {
     })
       .then(response => response.json())
       .then(signInUser)
-      .catch(() => {
+      .then(() => {
+        history.push(currentUser.role == "Admin" ? '/admin' : '/app')
+      })
+      .catch((error) => {
         setSignInError('Error signing in')
       })
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      { signInError ? <div>{signInError}</div> : null }
+    <div>
+      { currentUser ? <Redirect to='/' /> : null }
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          ref={register}
-          name="email" id="email" type="email"
-          autoComplete="email" />
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        { signInError ? <div>{signInError}</div> : null }
 
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          ref={register}
-          name="password" id="password" type="password"
-          autoComplete="password" />
-      </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            ref={register}
+            name="email" id="email" type="email"
+            autoComplete="email" />
+        </div>
 
-      <div>
-        <input name="isAdmin" id="isAdmin" type="checkbox" ref={register} />
-        <label htmlFor="isAdmin">Admin</label>
-      </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            ref={register}
+            name="password" id="password" type="password"
+            autoComplete="password" />
+        </div>
 
-      <div>
-        <input type="submit" />
-      </div>
-    </form>
+        <div>
+          <input name="isAdmin" id="isAdmin" type="checkbox" ref={register} />
+          <label htmlFor="isAdmin">Admin</label>
+        </div>
+
+        <div>
+          <input type="submit" />
+        </div>
+      </form>
+    </div>
   )
 }
 

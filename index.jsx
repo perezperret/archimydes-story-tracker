@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './components/app'
+import Root from './components/root'
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<Root />, document.getElementById('root'))

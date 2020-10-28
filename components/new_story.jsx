@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useForm } from "react-hook-form"
+import { useHistory } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 
 import { withCurrentUser } from './current_user_context'
 
 const NewStory = ({ currentUser }) => {
   const { register, handleSubmit } = useForm()
   const [apiError, setApiError] = useState('')
+  const history = useHistory()
 
   const onSubmit = data => {
     setApiError('')
@@ -20,7 +22,7 @@ const NewStory = ({ currentUser }) => {
       body: JSON.stringify(data)
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(() => { history.push('/stories') })
       .catch(() => {
         setApiError('Error creating story')
       })
